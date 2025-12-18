@@ -401,7 +401,7 @@ def add_test_data():
 
     # 4. Add Restaurants
     restaurant_items = [
-        Restaurant(name='The Velvet Room', description='A modern dining experience.', image_file='Velvett.jpg', location='Downtown'),
+        Restaurant(name='The Velvet Room', description='A modern dining experience.', image_file='velvet_room.jpg', location='Downtown'),
         Restaurant(name='Luxe Dining', description='Classic luxury and fine food.', image_file='luxe.jpg', location='Uptown'),
         Restaurant(name='The Urban Retreat', description='A beautiful spot with outdoor seating.', image_file='urban.jpg', location='Market Street'),
         Restaurant(name='Golden Fork', description='The best traditional food.', image_file='golden.jpg', location='Old Town'),
