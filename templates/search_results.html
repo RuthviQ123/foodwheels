@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results for "{{ query }}"</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png', _external=True) }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico', _external=True) }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo">
+            </a>
+        </div> 
+        <div class="title"> 
+            <h2>FoodWheels</h2>
+        </div>
+        <div class="auth-buttons">
+            <a href="{{ url_for('cart_page') }}" class="cart-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+            {% if user %}
+                <div class="dropdown">
+                    <button class="btn account-btn">Hi, {{ user.first_name }}</button>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('my_orders') }}">My Orders</a>
+                        <a href="{{ url_for('my_bookings') }}">My Bookings</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ url_for('signup') }}" class="btn">Sign Up</a>
+                <a href="{{ url_for('login') }}" class="btn">Login</a>
+            {% endif %}
+        </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+<section class="cuisines">
+    <h2>Search Results for: "{{ query }}"</h2>
+    <div class="cuisine-items">
+        {% if not results %}
+            <p style="text-align: center; width: 100%; font-size: 1.2rem;">
+                Sorry, no items found matching your search.
+            </p>
+        {% endif %}
+        {% for item in results %}
+        <div class="cuisine-item">
+            <a href="{{ url_for('item_details', item_id=item.id) }}">
+                <img src="{{ url_for('static', filename='images/' + item.image_file) }}" alt="{{ item.name }}">
+            </a>
+            <h3>{{ item.name }}</h3>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+    <footer style="margin-top: 100px;">
+        <p>&copy; 2025 Food Ordering App. All rights reserved.</p>
+    </footer>
+</body>
+</html>

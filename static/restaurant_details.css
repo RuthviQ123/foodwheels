@@ -1,0 +1,210 @@
+/* --- Imports & Body --- */
+body {
+    font-family: 'Chewy', cursive;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Header (Copied) --- */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: #ffffff;
+    border-radius: 0 0 25px 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+header .title {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    font-size: 1.5rem; font-weight: bold; color: #000;
+}
+header .logo img { width: 40px; }
+.auth-buttons { display: flex; gap: 15px; align-items: center; }
+.auth-buttons .btn {
+    padding: 12px 20px; text-decoration: none; background-color: #FF5200;
+    color: #fff; border-radius: 30px; font-weight: bold;
+}
+.auth-buttons .welcome-text {
+    font-weight: bold; color: #333;
+}
+
+/* --- Main Details Container --- */
+.details-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* --- Left Side: Image --- */
+.details-image {
+    flex: 1;
+}
+.details-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- Right Side: Info --- */
+.details-info {
+    flex: 1;
+    padding: 40px;
+}
+.details-info h1 {
+    font-size: 3rem;
+    color: #000;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.details-info .description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #555;
+}
+.details-info .location {
+    font-size: 1.1rem;
+    color: #333;
+    margin: 20px 0;
+}
+
+/* --- Booking Form --- */
+.booking-form {
+    margin-top: 20px;
+    background: #fcfcfc;
+    border: 1px solid #f0f0f0;
+    border-radius: 15px;
+    padding: 20px;
+}
+.booking-form h2 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    text-align: center;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-family: 'Chewy', cursive;
+    box-sizing: border-box; /* Important */
+}
+
+.book-now-btn {
+    display: block;
+    width: 100%;
+    padding: 18px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #FF5200;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-family: 'Chewy', cursive;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center; padding: 20px; background: #FF5200;
+    color: white; margin-top: 40px;
+    border-radius: 15px 15px 0 0;
+}
+footer p { font-size: 14px; margin: 0; }
+
+/* --- CORRECTED: Header Dropdown & Icon Styles --- */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* This styles the "Sign Up" & "Login" buttons */
+.auth-buttons .btn {
+    padding: 12px 20px;
+    text-decoration: none;
+    background-color: #FF5200;
+    color: #fff;
+    border-radius: 30px;
+    font-weight: bold;
+    font-family: 'Chewy', cursive;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+.auth-buttons .btn:hover {
+    background-color: #e64a00;
+}
+
+/* This makes your cart icon orange */
+.cart-icon i {
+    color: #FF5200 !important;
+    font-size: 24px;
+    transition: color 0.3s;
+}
+.cart-icon i:hover {
+    color: #e64a00 !important;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+/* This makes your "Hi, Repakula" button match */
+.account-btn {
+    padding: 12px 20px;
+    background-color: #FF5200;
+    color: #fff;
+    border-radius: 30px;
+    font-weight: bold;
+    font-family: 'Chewy', cursive;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 100;
+    border-radius: 10px;
+    overflow: hidden;
+    right: 0;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    font-family: 'Arial', sans-serif;
+}
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown:hover .account-btn {
+    background-color: #e64a00;
+}
+/* --- END --- */

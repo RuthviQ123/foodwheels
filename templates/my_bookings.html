@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png', _external=True) }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico', _external=True) }}">
+    <title>My Bookings - FoodWheels</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='my_bookings.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo">
+            </a>
+        </div> 
+        <div class="title"> 
+            <h2>My Bookings</h2>
+        </div>
+        <div class="auth-buttons">
+            <a href="{{ url_for('cart_page') }}" class="cart-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+            {% if user %}
+                <div class="dropdown">
+                    <button class="btn account-btn">Hi, {{ user.first_name }}</button>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('my_orders') }}">My Orders</a>
+                        <a href="{{ url_for('my_bookings') }}">My Bookings</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ url_for('signup') }}" class="btn">Sign Up</a>
+                <a href="{{ url_for('login') }}" class="btn">Login</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="orders-container">
+        {% if not bookings %}
+            <div class="orders-empty">
+                <h2>You have no past bookings.</h2>
+                <a href="{{ url_for('home') }}" class="btn-shop">Book a Table</a>
+            </div>
+        {% else %}
+            {% for booking in bookings %}
+            <div class="order-card">
+                <div class="order-header">
+                    <div class="order-info">
+                        <strong>Restaurant:</strong> {{ booking.restaurant.name }}
+                    </div>
+                    <div class="order-info">
+                        <strong>Date:</strong> {{ booking.booking_date }}
+                    </div>
+                    <div class="order-info">
+                        <strong>Time:</strong> {{ booking.booking_time }}
+                    </div>
+                </div>
+                <div class="order-body">
+                    <div class="booking-details">
+                        <span class="detail-item"><strong>Party Size:</strong> {{ booking.party_size }}</span>
+                        <span class="detail-item"><strong>Status:</strong> <span class="status-confirmed">{{ booking.status }}</span></span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <footer>
+        <p>&copy; 2025 Food Ordering App. All rights reserved.</p>
+    </footer>
+</body>
+</html>

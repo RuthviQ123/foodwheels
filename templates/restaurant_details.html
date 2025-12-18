@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png', _external=True) }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico', _external=True) }}">
+    <title>{{ restaurant.name }} - FoodWheels</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='restaurant_details.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo">
+            </a>
+        </div> 
+        <div class="title"> 
+            <h2>FoodWheels</h2>
+        </div>
+        <div class="auth-buttons">
+            <a href="{{ url_for('cart_page') }}" class="cart-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+            {% if user %}
+                <div class="dropdown">
+                    <button class="btn account-btn">Hi, {{ user.first_name }}</button>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('my_orders') }}">My Orders</a>
+                        <a href="{{ url_for('my_bookings') }}">My Bookings</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ url_for('signup') }}" class="btn">Sign Up</a>
+                <a href="{{ url_for('login') }}" class="btn">Login</a>
+            {% endif %}
+        </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages" style="width: 80%; margin: 10px auto;">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}" style="padding: 15px; margin-bottom: 10px; border: 1px solid transparent; border-radius: 4px; font-weight: bold; text-align: center; color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;">
+              {{ message }}
+          </div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <div class="details-container">
+        <div class="details-image">
+            <img src="{{ url_for('static', filename='images/' + restaurant.image_file) }}" alt="{{ restaurant.name }}">
+        </div>
+        <div class="details-info">
+            <h1>{{ restaurant.name }}</h1>
+            <p class="description">
+                {{ restaurant.description or 'A great place to dine.' }}
+            </p>
+            <p class="location">
+                <strong>Location:</strong> {{ restaurant.location or 'N/A' }}
+            </p>
+            <form class="booking-form" method="POST" action="{{ url_for('book_table', restaurant_id=restaurant.id) }}">
+                <h2>Book a Table</h2>
+                <div class="form-group">
+                    <label for="booking_date">Date:</label>
+                    <input type="date" id="booking_date" name="booking_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="booking_time">Time:</label>
+                    <input type="time" id="booking_time" name="booking_time" required>
+                </div>
+                <div class="form-group">
+                    <label for="party_size">Party Size:</label>
+                    <input type="number" id="party_size" name="party_size" value="2" min="1" max="10" required>
+                </div>
+                <button type="submit" class="book-now-btn">
+                    Book Now
+                </button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 Food Ordering App. All rights reserved.</p>
+    </footer>
+</body>
+</html>

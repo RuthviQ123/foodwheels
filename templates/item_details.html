@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png', _external=True) }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico', _external=True) }}">
+    <title>{{ item.name }} - FoodWheels</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='item_details.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo">
+            </a>
+        </div> 
+        <div class="title"> 
+            <h2>FoodWheels</h2>
+        </div>
+        <div class="auth-buttons">
+            <a href="{{ url_for('cart_page') }}" class="cart-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+            {% if user %}
+                <div class="dropdown">
+                    <button class="btn account-btn">Hi, {{ user.first_name }}</button>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('my_orders') }}">My Orders</a>
+                        <a href="{{ url_for('my_bookings') }}">My Bookings</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ url_for('signup') }}" class="btn">Sign Up</a>
+                <a href="{{ url_for('login') }}" class="btn">Login</a>
+            {% endif %}
+        </div>
+    </header>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages" style="width: 80%; margin: 10px auto;">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}" style="padding: 15px; margin-bottom: 10px; border: 1px solid transparent; border-radius: 4px; font-weight: bold; text-align: center; color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
+              {{ message }}
+          </div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <div class="details-container">
+        <div class="details-image">
+            <img src="{{ url_for('static', filename='images/' + item.image_file) }}" alt="{{ item.name }}">
+        </div>
+        <div class="details-info">
+            <h1>{{ item.name }}</h1>
+            <p class="description">
+                {{ item.description or 'Delicious item description coming soon.' }}
+            </p>
+            <p class="price">${{ "%.2f"|format(item.price) }}</p>
+            <div classs="quantity-selector-container">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" value="1" min="1" 
+                       form="add-to-cart-form" class="quantity-input">
+            </div>
+            <div class="button-container">
+                <form method="POST" action="{{ url_for('add_to_cart', item_id=item.id) }}" id="add-to-cart-form">
+                    <button type="submit" class="add-to-cart-btn">
+                        Add to Cart
+                    </button>
+                </form>
+                <form method="POST" action="{{ url_for('order_now', item_id=item.id) }}" id="order-now-form">
+                    <input type="hidden" name="quantity" value="1" class="quantity-hidden-input">
+                    <button type="submit" class="order-now-btn">
+                        Order Now
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 Food Ordering App. All rights reserved.</p>
+    </footer>
+    <script>
+        const quantityInput = document.querySelector('.quantity-input');
+        const hiddenQuantityInput = document.querySelector('.quantity-hidden-input');
+        quantityInput.addEventListener('change', function() {
+            hiddenQuantityInput.value = quantityInput.value;
+        });
+        quantityInput.addEventListener('keyup', function() {
+            hiddenQuantityInput.value = quantityInput.value;
+        });
+    </script>
+</body>
+</html>

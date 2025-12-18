@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png', _external=True) }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico', _external=True) }}">
+    <title>Create Account - FoodWheels</title>
+    <!-- Link to the UPDATED signup.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='signup.css') }}">
+    <!-- Font Awesome for the header icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Main Site Header -->
+    <header>
+        <div class="logo">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo">
+            </a>
+        </div> 
+        <div class="title"> 
+            <h2>Sign Up</h2>
+        </div>
+        <div class="auth-buttons">
+            <a href="{{ url_for('cart_page') }}" class="cart-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+            {% if user %}
+                <div class="dropdown">
+                    <button class="btn account-btn">Hi, {{ user.first_name }}</button>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('my_orders') }}">My Orders</a>
+                        <a href="{{ url_for('my_bookings') }}">My Bookings</a>
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ url_for('signup') }}" class="btn">Sign Up</a>
+                <a href="{{ url_for('login') }}" class="btn">Login</a>
+            {% endif %}
+        </div>
+    </header>
+    
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Signup Form Container -->
+    <div class="signup-container">
+        <form class="signup-form" method="POST">
+            <h2>Create Your Account</h2>
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" name="first_name" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" name="last_name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+             <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn-submit">Sign Up</button>
+            <p class="switch-form">
+                Already have an account? <a href="{{ url_for('login') }}">Login</a>
+            </p>
+        </form>
+    </div>
+
+    <!-- Footer Section -->
+    <footer style="margin-top: 60px;">
+        <p>&copy; 2025 Food Ordering App. All rights reserved.</p>
+    </footer>
+</body>
+</html>

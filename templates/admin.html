@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - FoodWheels</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png', _external=True) }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico', _external=True) }}">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="logo-area">
+                <h2>FoodWheels</h2>
+                <span>Admin</span>
+            </div>
+            <nav>
+                <a href="{{ url_for('home') }}" class="nav-link"><i class="fa-solid fa-house"></i> View Website</a>
+                <a href="#" class="nav-link active"><i class="fa-solid fa-utensils"></i> Manage Food</a>
+                <a href="{{ url_for('logout') }}" class="nav-link logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <header>
+                <h1>Manage Menu</h1>
+                <div class="user-badge">Hi, {{ user.first_name }}</div>
+            </header>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <section class="add-item-section">
+                <h3>Add New Food Item</h3>
+                <form action="{{ url_for('add_item') }}" method="POST" class="admin-form">
+                    <div class="form-row">
+                        <input type="text" name="name" placeholder="Item Name (e.g. Spicy Ramen)" required>
+                        <input type="text" name="tag" placeholder="Category Tag (e.g. Noodles)" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" name="sub_tag" placeholder="Sub Tag (e.g. Spicy)" required>
+                        <input type="number" step="0.01" name="price" placeholder="Price (e.g. 12.99)" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" name="image_file" placeholder="Image Filename (e.g. ramen.jpg)" required>
+                    </div>
+                    <button type="submit" class="btn-add">Add Item</button>
+                </form>
+            </section>
+
+            <section class="items-list">
+                <h3>Current Menu Items</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        {% if item.tag != 'Category' %} 
+                        <tr>
+                            <td><img src="{{ url_for('static', filename='images/' + item.image_file) }}" alt="img"></td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.tag }} <span class="sub-tag">({{ item.sub_tag }})</span></td>
+                            <td class="price">${{ "%.2f"|format(item.price) }}</td>
+                            <td>
+                                <a href="{{ url_for('delete_item', item_id=item.id) }}" class="btn-delete" onclick="return confirm('Are you sure you want to delete this?')"><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

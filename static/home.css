@@ -1,0 +1,525 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ✅ GLOBAL FONT: Standard text is Arial (Clean & Readable) */
+body {
+    font-family: 'Chewy', cursive;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ✅ TITLES FONT: Only Headings use Chewy (Fun & Bold) */
+h1, h2, h3, .logo, .app-title, .splash-title, .btn {
+    font-family: 'Chewy', cursive;
+}
+
+/* Prevent scrolling while intro is visible */
+.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* --- 💥 ORANGE SPLASH SCREEN 💥 --- */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #FF6600, #FF8C00); /* Bright Orange */
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.6s cubic-bezier(0.8, 0, 0.2, 1);
+}
+
+/* Rotating Sunburst Background */
+.sunburst {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200vmax;
+    height: 200vmax;
+    background: repeating-conic-gradient(
+        from 0deg,
+        rgba(255, 255, 255, 0.1) 0deg,
+        rgba(255, 255, 255, 0.1) 15deg,
+        transparent 15deg,
+        transparent 30deg
+    );
+    animation: rotateSunburst 20s linear infinite;
+    z-index: 1;
+}
+
+.splash-content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Animated Icon Container */
+.chef-hat-container {
+    font-size: 80px;
+    color: white;
+    margin-bottom: 20px;
+    animation: bounce 1s infinite alternate;
+}
+
+/* Splash Text */
+.splash-logo {
+    font-size: 5rem;
+    color: white;
+    margin: 0;
+    line-height: 1;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.splash-logo .highlight {
+    color: #FFD700; /* Gold */
+}
+
+.splash-sub {
+    font-family: 'Chewy', cursive;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 5px;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
+/* Progress Bar */
+.loader-wrapper {
+    position: relative;
+    width: 300px;
+    margin-top: 50px;
+}
+
+.progress-track {
+    width: 100%;
+    height: 12px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #fff;
+    border-radius: 20px;
+    transition: width 0.1s linear;
+}
+
+.percentage-badge {
+    position: absolute;
+    right: 0;
+    top: -35px;
+    background: white;
+    color: #FF6600;
+    font-family: 'Chewy', cursive;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+/* Animations */
+@keyframes rotateSunburst {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-15px); }
+}
+
+/* =========================================
+   WEBSITE CONTENT
+   ========================================= */
+
+/* Header Styles */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: #ffffff;
+    border-radius: 0 0 25px 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 100;
+}
+
+header .title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.2rem;
+    color: #000000;
+}
+
+header .logo img {
+    width: 40px;
+    transition: transform 0.3s ease;
+}
+
+header .logo img:hover {
+    transform: scale(1.1);
+}
+
+/* Auth Buttons */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.auth-buttons .btn {
+    padding: 12px 20px;
+    text-decoration: none;
+    background-color: #FF5200;
+    color: #fff;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.auth-buttons .btn:hover {
+    background-color: #e64a00;
+}
+
+.cart-icon i {
+    color: #FF5200 !important;
+    font-size: 24px;
+    transition: color 0.3s;
+}
+
+.cart-icon i:hover {
+    color: #e64a00 !important;
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.account-btn {
+    padding: 12px 20px;
+    background-color: #FF5200;
+    color: #fff;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Chewy', cursive;
+}
+
+.nav-profile-pic {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 100;
+    border-radius: 10px;
+    overflow: hidden;
+    right: 0;
+    top: 100%;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 1rem;
+    font-family: 'Chewy', cursive; /* Clean font for links */
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .account-btn {
+    background-color: #e64a00;
+}
+
+/* Banner */
+.banner {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.banner video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    filter: brightness(0.85);
+}
+
+.overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 60%;
+    text-align: center;
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 12px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    background-color: transparent;
+    outline: none;
+    font-family: 'Chewy', cursive; /* Clean font for typing */
+}
+
+.search-bar button {
+    padding: 12px 30px;
+    background-color: #FF5200;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 30px;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: #e64a00;
+}
+
+/* Headings */
+.cuisines, .restaurants, .desserts {
+    text-align: center;
+    margin-top: 50px;
+    padding: 0 20px;
+}
+
+.cuisines h2, .restaurants h2, .desserts h2 {
+    font-size: 2.5rem;
+    font-weight: normal;
+    letter-spacing: 1.5px;
+    padding: 10px 0;
+    color: #000;
+    margin-bottom: 25px;
+}
+
+/* Scroll Containers */
+.cuisine-items, .dessert-items, .restaurant-items {
+    display: flex;
+    gap: 30px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    padding: 20px 10px;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.cuisine-items::-webkit-scrollbar, 
+.dessert-items::-webkit-scrollbar, 
+.restaurant-items::-webkit-scrollbar {
+    display: none;
+}
+
+/* Cards */
+.cuisine-item, .dessert-item {
+    text-align: center;
+    min-width: 220px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cuisine-item img, .dessert-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 20px 20px 0 0;
+}
+
+.cuisine-item:hover, .dessert-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* ✅ FIXED: Menu Item Titles use Chewy (Matches your other pages) */
+.cuisine-item h3, .dessert-item h3 {
+    margin: 15px 0;
+    font-size: 1.4rem;
+    color: #000;
+    font-weight: normal;
+}
+
+/* Restaurant Cards */
+.restaurant-item {
+    text-align: center;
+    min-width: 400px;
+    transition: transform 0.3s ease;
+    border-radius: 25px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.restaurant-item img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.restaurant-item h3 {
+    margin: 20px 0;
+    font-size: 1.6rem;
+    color: #000;
+}
+
+.restaurant-item:hover {
+    transform: scale(1.02);
+}
+
+/* Footer */
+/* --- FLASH MESSAGES --- */
+.flash-messages {
+    width: 80%;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif; /* Clean font for reading messages */
+}
+
+.alert-success { background-color: #d4edda; color: #155724; }
+.alert-error { background-color: #f8d7da; color: #721c24; }
+.alert-info { background-color: #d1ecf1; color: #0c5460; }
+
+/* --- ✅ UPGRADED FOOTER STYLES --- */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    background: #FF5200; /* Signature Orange */
+    color: white;
+    margin-top: 60px;
+    border-radius: 25px 25px 0 0;
+    box-shadow: 0 -5px 20px rgba(255, 82, 0, 0.2);
+}
+
+.footer-content h3 {
+    font-family: 'Chewy', cursive;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    font-weight: normal;
+}
+
+/* New: Style for the "Why I built this" text */
+.about-text {
+    font-family: 'Arial', sans-serif; /* Clean readable font */
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 30px; /* Centers text and adds space below */
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.6;
+}
+
+.about-text .highlight {
+    color: #FFD700; /* Gold color for your name */
+    font-family: 'Chewy', cursive;
+    font-size: 1.3rem;
+}
+
+/* Social Icons Container */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Space between icons */
+    margin-bottom: 25px;
+}
+
+/* Individual Icons */
+.social-links a {
+    color: white;
+    font-size: 2rem; /* Big icons */
+    transition: all 0.3s ease;
+    display: inline-block;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+/* Hover Effects */
+.social-links a:hover {
+    transform: translateY(-5px) scale(1.1); /* Float up */
+    color: #fff5e6; /* Lighter white */
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.2));
+}
+
+/* Copyright Text */
+.copyright {
+    font-size: 0.9rem;
+    font-family: 'Arial', sans-serif;
+    opacity: 0.8;
+    margin: 0;
+}
