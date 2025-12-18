@@ -4,8 +4,8 @@ with app.app_context():
     # 1. Create the empty database file
     db.create_all()
 
-    # 2. Add the restaurants (Notice the FIXED 'velvet_room.jpg')
-    r1 = Restaurant(name='The Velvet Room', description='A modern dining experience.', image_file='velvet_room.jpg', location='Downtown')
+    # 2. Add the restaurants (Notice the FIXED 'room.jpg')
+    r1 = Restaurant(name='The Velvet Room', description='A modern dining experience.', image_file='room.jpg', location='Downtown')
     r2 = Restaurant(name='Luxe Dining', description='Classic luxury and fine food.', image_file='luxe.jpg', location='Uptown')
     r3 = Restaurant(name='The Urban Retreat', description='A beautiful spot with outdoor seating.', image_file='urban.jpg', location='Market Street')
     r4 = Restaurant(name='Golden Fork', description='The best traditional food.', image_file='golden.jpg', location='Old Town')
